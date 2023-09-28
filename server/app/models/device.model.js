@@ -12,7 +12,7 @@ module.exports = (sequelize, Sequelize) => {
             type: Sequelize.STRING,
         },
         imei: {
-            type: Sequelize.INTEGER,
+            type: Sequelize.STRING,
         },
         vahicle_no: {
             type: Sequelize.STRING,
@@ -50,7 +50,7 @@ module.exports = (sequelize, Sequelize) => {
     },{
         freezeTableName: true,
         timestamps: true,
-        createdAt: true,
+        created_at: true,
         updatedAt: true,
     });
   

@@ -4,7 +4,10 @@ module.exports = app => {
     var router = require('express').Router()
   
     // Create a new Device
-    router.get("/", devices.create);
+    router.post("/", devices.create);
+
+    // Get all devices
+    router.get("/", devices.findAll);
 
     app.use('/api/device', router);
 };
