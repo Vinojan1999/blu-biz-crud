@@ -1,15 +1,58 @@
 import { useState } from 'react';
 
 const DialogForm = ({ onClose }) => {
+    const [formData, setFormData] = useState({
+        name: '',
+        type: 'ios',
+        imei: '',
+        vahicle_no: '',
+        connection_no: '',
+        renewal_at: '',
+        topup_validity: '',
+        topup_validity_option: 'day',
+        speed_limit: 0,
+        fuel_consumption: 0,
+        level_no: '',
+        selected_level: '',
+        gps_sync_interval: 30,
+        idling_time: 5,
+    })
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onClose();
+
+        try {
+            const response = await fetch('http://localhost:8080/api/device/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            });
+      
+            if (response.ok) {
+                onClose();
+                console.log("Successfully Stored to DB");
+            } else {
+                console.error('Failed to store data in the backend');
+            }
+        } catch (error) {
+            console.error('Network error:', error);
+        }
+    }
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        
+        setFormData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
     }
 
   return (
     <div className='absolute top-0 left-0 w-full h-min-full py-20 bg-black/20 backdrop-blur-[2px] flex justify-center items-center z-10'>
-        <form className='w-[50%] bg-white p-6' onSubmit={handleSubmit}>
+        <form className='w-[800px] bg-white p-6' onSubmit={handleSubmit}>
             <div className='flex justify-between items-start'>
                 <h1 className='font-normal text-xl'>Add New Device</h1>
                 <button onClick={onClose}>
@@ -26,8 +69,9 @@ const DialogForm = ({ onClose }) => {
                         Device Name
                         <input
                             type="text"
-                            value=''
-                            onChange={() => {}}
+                            name='name'
+                            value={formData.name}
+                            onChange={handleInputChange}
                             placeholder='Name'
                             className='h-10 px-4 mt-3 block w-full text-gray-600 border border-gray-400 rounded-md text-sm'
                         />
@@ -37,10 +81,12 @@ const DialogForm = ({ onClose }) => {
                         <select 
                             name="type" 
                             id="type"
+                            value={formData.type}
+                            onChange={handleInputChange}
                             className='h-10 px-4 mt-3 block w-full text-gray-600 border border-gray-400 rounded-md text-sm bg-white'
                         >
-                            <option value="android">Android Mobile</option>
-                            <option value="ios">iOS Mobile</option>
+                            <option value="Android">Android Mobile</option>
+                            <option value="iOS">iOS Mobile</option>
                         </select>
                     </label>
                 </div>
@@ -49,8 +95,9 @@ const DialogForm = ({ onClose }) => {
                         Device IMEI
                         <input
                             type="text"
-                            value=''
-                            onChange={() => {}}
+                            name='imei'
+                            value={formData.imei}
+                            onChange={handleInputChange}
                             placeholder='IMEI'
                             className='h-10 px-4 mt-3 block w-full text-gray-600 border border-gray-400 rounded-md text-sm'
                         />
@@ -81,8 +128,9 @@ const DialogForm = ({ onClose }) => {
                         Vahicle No
                         <input
                             type="text"
-                            value=''
-                            onChange={() => {}}
+                            name='vahicle_no'
+                            value={formData.vahicle_no}
+                            onChange={handleInputChange}
                             className='h-10 px-4 mt-3 block w-full text-gray-600 border border-gray-400 rounded-md text-sm'
                         />
                     </label>
@@ -90,8 +138,9 @@ const DialogForm = ({ onClose }) => {
                         Connection No
                         <input
                             type="text"
-                            value=''
-                            onChange={() => {}}
+                            name='connection_no'
+                            value={formData.connection_no}
+                            onChange={handleInputChange}
                             className='h-10 px-4 mt-3 block w-full text-gray-600 border border-gray-400 rounded-md text-sm'
                         />
                     </label>
@@ -102,7 +151,9 @@ const DialogForm = ({ onClose }) => {
                         <input 
                             type="date" 
                             id="renewal" 
-                            name="renewal"
+                            name="renewal_at"
+                            value={formData.renewal_at}
+                            onChange={handleInputChange}
                             className='h-10 px-4 mt-3 block w-full text-gray-600 border border-gray-400 rounded-md text-sm'
                         />
                     </label>
@@ -111,17 +162,20 @@ const DialogForm = ({ onClose }) => {
                         <div className='flex flex-row gap-4'>
                             <input
                                 type="text"
-                                value=''
-                                onChange={() => {}}
+                                name='topup_validity'
+                                value={formData.topup_validity}
+                                onChange={handleInputChange}
                                 className='h-10 px-4 mt-3 block w-full text-gray-600 border border-gray-400 rounded-md text-sm'
                             />
                             <select 
-                                name="type" 
+                                name="topup_validity_option" 
                                 id="type"
+                                value={formData.topup_validity_option}
+                                onChange={handleInputChange}
                                 className='h-10 px-4 mt-3 block text-gray-600 border border-gray-400 rounded-md text-sm bg-white'
                             >
-                                <option value="day">Days</option>
-                                <option value="month">Months</option>
+                                <option value="Days">Days</option>
+                                <option value="Months">Months</option>
                             </select>
                         </div>
                     </label>
@@ -131,8 +185,9 @@ const DialogForm = ({ onClose }) => {
                         Speed Limit (km/h)
                         <input
                             type="text"
-                            value='0'
-                            onChange={() => {}}
+                            name='speed_limit'
+                            value={formData.speed_limit}
+                            onChange={handleInputChange}
                             className='h-10 px-4 mt-3 block w-full text-gray-600 border border-gray-400 rounded-md text-sm'
                         />
                     </label>
@@ -140,8 +195,9 @@ const DialogForm = ({ onClose }) => {
                         Avarage Fuel Consumption (km/l)
                         <input
                             type="text"
-                            value='0'
-                            onChange={() => {}}
+                            name='fuel_consumption'
+                            value={formData.fuel_consumption}
+                            onChange={handleInputChange}
                             className='h-10 px-4 mt-3 block w-full text-gray-600 border border-gray-400 rounded-md text-sm'
                         />
                     </label>
@@ -150,26 +206,30 @@ const DialogForm = ({ onClose }) => {
                     <label className='w-96 text-gray-600 font-normal text-sm'>
                         Level No
                         <select 
-                            name="type" 
+                            name="level_no" 
                             id="type"
+                            value={formData.level_no}
+                            onChange={handleInputChange}
                             className='h-10 px-4 mt-3 block w-full text-gray-600 border border-gray-400 rounded-md text-sm bg-white'
                         >
                             <option value="">None</option>
-                            <option value="level1">Level 1</option>
-                            <option value="level2">Level 2</option>
+                            <option value="Level 1">Level 1</option>
+                            <option value="Level 2">Level 2</option>
                         </select>
                     </label>
                     <label className='w-full text-gray-600 font-normal text-sm'>
                         Selected Level
                         <select 
-                            name="type" 
+                            name="selected_level" 
                             id="type"
+                            value={formData.selected_level}
+                            onChange={handleInputChange}
                             className='h-10 px-4 mt-3 block w-full text-gray-600 border border-gray-400 rounded-md text-sm bg-white'
                         >
                             <option value=""></option>
-                            <option value="beginner">Beginner</option>
-                            <option value="intermediate">Intermediate</option>
-                            <option value="advance">Advance</option>
+                            <option value="Beginner">Beginner</option>
+                            <option value="Intermediate">Intermediate</option>
+                            <option value="Advance">Advance</option>
                         </select>
                     </label>
                 </div>
@@ -178,8 +238,9 @@ const DialogForm = ({ onClose }) => {
                         GPS Data Sync Interval (min)
                         <input
                             type="number"
-                            value='30'
-                            onChange={() => {}}
+                            name='gps_sync_interval'
+                            value={formData.gps_sync_interval}
+                            onChange={handleInputChange}
                             className='h-10 px-4 mt-3 block w-36 text-gray-600 border border-gray-400 rounded-md text-sm'
                         />
                     </label>
@@ -187,8 +248,9 @@ const DialogForm = ({ onClose }) => {
                         Idling Time (min)
                         <input
                             type="number"
-                            value='5'
-                            onChange={() => {}}
+                            name='idling_time'
+                            value={formData.idling_time}
+                            onChange={handleInputChange}
                             className='h-10 px-4 mt-3 block w-36 text-gray-600 border border-gray-400 rounded-md text-sm'
                         />
                     </label>
