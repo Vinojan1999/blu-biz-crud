@@ -52,7 +52,7 @@ const DialogForm = ({ onClose }) => {
 
   return (
     <div className='absolute top-0 left-0 w-full h-min-full py-20 bg-black/20 backdrop-blur-[2px] flex justify-center items-center z-10'>
-        <form className='w-[800px] bg-white p-6' onSubmit={handleSubmit}>
+        <form className='md:w-[800px] w-full bg-white p-6' onSubmit={handleSubmit}>
             <div className='flex justify-between items-start'>
                 <h1 className='font-normal text-xl'>Add New Device</h1>
                 <button onClick={onClose}>
@@ -64,7 +64,7 @@ const DialogForm = ({ onClose }) => {
             <hr className='mt-3 mb-5'/>
 
             <div className='flex flex-col gap-6'>
-                <div className='flex flex-row gap-6'>
+                <div className='flex flex-row md:gap-6 gap-2'>
                     <label className='w-full text-gray-600 font-normal text-sm'>
                         Device Name
                         <input
@@ -90,7 +90,7 @@ const DialogForm = ({ onClose }) => {
                         </select>
                     </label>
                 </div>
-                <div className='flex flex-row gap-6'>
+                <div className='flex flex-row md:gap-6 gap-2'>
                     <label className='w-full text-gray-600 font-normal text-sm'>
                         Device IMEI
                         <input
@@ -123,7 +123,7 @@ const DialogForm = ({ onClose }) => {
                         </div>
                     </label>
                 </div>
-                <div className='flex flex-row gap-6'>
+                <div className='flex flex-row md:gap-6 gap-2'>
                     <label className='w-full text-gray-600 font-normal text-sm'>
                         Vahicle No
                         <input
@@ -145,7 +145,7 @@ const DialogForm = ({ onClose }) => {
                         />
                     </label>
                 </div>
-                <div className='flex flex-row gap-6'>
+                <div className='flex flex-row md:gap-6 gap-2'>
                     <label className='text-gray-600 font-normal text-sm w-96'>
                         Renewal Date
                         <input 
@@ -159,7 +159,7 @@ const DialogForm = ({ onClose }) => {
                     </label>
                     <label className='w-full text-gray-600 font-normal text-sm'>
                         TopUp Validity
-                        <div className='flex flex-row gap-4'>
+                        <div className='flex flex-row md:gap-4 gap-1'>
                             <input
                                 type="text"
                                 name='topup_validity'
@@ -180,7 +180,7 @@ const DialogForm = ({ onClose }) => {
                         </div>
                     </label>
                 </div>
-                <div className='flex flex-row gap-6'>
+                <div className='flex flex-row md:gap-6 gap-2'>
                     <label className='w-full text-gray-600 font-normal text-sm'>
                         Speed Limit (km/h)
                         <input
@@ -202,7 +202,7 @@ const DialogForm = ({ onClose }) => {
                         />
                     </label>
                 </div>
-                <div className='flex flex-row gap-6'>
+                <div className='flex flex-row md:gap-6 gap-2'>
                     <label className='w-96 text-gray-600 font-normal text-sm'>
                         Level No
                         <select 
@@ -233,7 +233,7 @@ const DialogForm = ({ onClose }) => {
                         </select>
                     </label>
                 </div>
-                <div className='flex flex-row gap-6'>
+                <div className='flex flex-row md:gap-6 gap-2'>
                     <label className='w-full text-gray-600 font-normal text-sm'>
                         GPS Data Sync Interval (min)
                         <input

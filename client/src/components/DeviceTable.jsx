@@ -21,8 +21,8 @@ const DeviceTable = ({ deviceDetails, setDeviceDetails }) => {
     }
 
   return (
-    <div className='bg-white mt-5'>
-        <table className='w-full border-collapse overflow-auto'>
+    <div className='bg-white mt-5 overflow-x-auto'>
+        <table className='w-full border-collapse'>
             <thead className='bg-gray-200 text-gray-700 py-1 px-2'>
                 <tr className=''>
                     <th className='font-semibold'>Vahicle No</th>
