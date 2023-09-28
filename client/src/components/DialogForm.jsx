@@ -3,13 +3,13 @@ import { useState } from 'react';
 const DialogForm = ({ onClose }) => {
     const [formData, setFormData] = useState({
         name: '',
-        type: 'ios',
+        type: 'iOS',
         imei: '',
         vahicle_no: '',
         connection_no: '',
         renewal_at: '',
         topup_validity: '',
-        topup_validity_option: 'day',
+        topup_validity_option: 'Days',
         speed_limit: 0,
         fuel_consumption: 0,
         level_no: '',

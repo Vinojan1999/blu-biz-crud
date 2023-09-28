@@ -35,6 +35,7 @@ exports.create = (req, res) => {
 exports.findAll = (req, res) => {
     db.device.findAll({
         attributes: [
+            'id',
             'name',
             'type',
             'imei',
@@ -48,7 +49,9 @@ exports.findAll = (req, res) => {
             'level_no',
             'selected_level',
             'gps_sync_interval',
-            'idling_time'
+            'idling_time',
+            'updatedAt',
+            'createdAt'
         ]
     })
     .then(data => {
@@ -59,5 +62,28 @@ exports.findAll = (req, res) => {
             message:
                 err.message || "Some error occurred while retrieving project_unit."
         });
+    });
+}
+
+exports.delete = (req, res) => {
+    const id = req.params.id;
+    
+    db.device.destroy({
+        where: { id: id },
+    })
+    .then((num) => {
+        if (num === 1) {
+          res.send({ message: "Device was deleted successfully." });
+        } else {
+          res.status(404).send({
+            message: `Cannot delete Device with id=${id}. Device not found.`,
+          });
+        }
+    })
+    .catch((err) => {
+        res.status(500).send({
+          message: "Could not delete Device with id=" + id,
+        });
+        console.error("DELETE ERROR", err);
     });
 }

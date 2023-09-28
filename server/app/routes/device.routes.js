@@ -9,5 +9,8 @@ module.exports = app => {
     // Get all devices
     router.get("/", devices.findAll);
 
+    // Delete a device by ID
+    router.delete("/:id", devices.delete);
+
     app.use('/api/device', router);
 };
